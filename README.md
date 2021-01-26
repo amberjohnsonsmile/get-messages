@@ -1,4 +1,4 @@
-Get Messages
+# Get Messages
 
 This script pulls all the messages from an SQS queue and saves them to a json file.
 Clone this repo and follow the instructions below.
