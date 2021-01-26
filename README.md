@@ -7,4 +7,5 @@ To run the script:
   1. Install ruby
   2. Run `bundle install`
   3. Use the proper profile to run the script and pass in the queue url:  
+
      `saml2aws exec --exec-profile <profile> -- ruby get_messages.rb "queue-url"`
