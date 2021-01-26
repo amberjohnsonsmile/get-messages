@@ -30,6 +30,12 @@ class GetMessages
     while !messages.empty?
       messages.each do |message|
         puts "Processing message with id #{message.message_id}"
+
+        # If it is json, minify it
+        if valid_json?(message.body)
+          message.body = JSON.parse(message.body).to_json
+        end
+
         processed_messages.push(message.body + ",")
       end
       messages = receive_messages(queue_url)
@@ -40,7 +46,7 @@ class GetMessages
       return
     end
 
-    # Manual formatting to each message gets its own line but is still valid json
+    # Manual formatting so each message gets its own line but the whole thing is still valid json
     processed_messages[0] = "[" + processed_messages[0]
     processed_messages[processed_messages.size - 1] = processed_messages[processed_messages.size - 1].chop + "]"
 
@@ -65,6 +71,14 @@ class GetMessages
     @client ||= Aws::SQS::Client.new
   end
 
+  def self.valid_json?(string)
+    begin
+      JSON.parse(string)
+      return true
+    rescue JSON::ParserError => e
+      return false
+    end
+  end
 end
 
 GetMessages.get_messages
