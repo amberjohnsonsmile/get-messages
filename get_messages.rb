@@ -19,7 +19,7 @@ class GetMessages
 
   def self.get_messages
     queue_url = ARGV[0]
-    if ARGV[0].empty?
+    if ARGV[0].nil?
       puts "Please pass in the queue URL as an argument"
       return
     end
@@ -30,7 +30,7 @@ class GetMessages
     while !messages.empty?
       messages.each do |message|
         puts "Processing message with id #{message.message_id}"
-        processed_messages.push(message.body)
+        processed_messages.push(JSON.parse(message.body))
       end
       messages = receive_messages(queue_url)
     end
