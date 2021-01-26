@@ -30,7 +30,7 @@ class GetMessages
     while !messages.empty?
       messages.each do |message|
         puts "Processing message with id #{message.message_id}"
-        processed_messages.push(JSON.parse(message.body))
+        processed_messages.push(message.body + ",")
       end
       messages = receive_messages(queue_url)
     end
@@ -40,9 +40,13 @@ class GetMessages
       return
     end
 
+    # Manual formatting to each message gets its own line but is still valid json
+    processed_messages[0] = "[" + processed_messages[0]
+    processed_messages[processed_messages.size - 1] = processed_messages[processed_messages.size - 1].chop + "]"
+
     filename = "messages-#{Time.now.strftime("%Y-%m-%dT%H:%M:%S")}.json"
     File.open(filename, "w+") do |f|
-      f.write(JSON.pretty_generate(processed_messages))
+      f.puts(processed_messages)
       puts "\n#{processed_messages.size} messages saved to file:\n#{filename}"
     end
   end
