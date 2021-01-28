@@ -34,6 +34,8 @@ class GetMessages
         # If it is json, minify it
         if valid_json?(message.body)
           message.body = JSON.parse(message.body).to_json
+        else
+          message.body = "\"#{message.body}\""
         end
 
         processed_messages.push(message.body + ",")
