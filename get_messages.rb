@@ -1,10 +1,6 @@
 require "aws-sdk"
-require "base64"
-require "date"
 require "json"
 require "pry"
-require "zlib"
-require "stringio"
 
 #
 # This script pulls all the messages from an SQS queue and saves them to a json file.
