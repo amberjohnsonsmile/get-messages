@@ -1,6 +1,6 @@
 # Get Messages
 
-This script pulls all the messages from an SQS queue and saves them to a json file.
+This script pulls all the messages from an SQS queue and saves them to a json file. It just reads the messages, it does not purge them from the queue.
 Clone this repo and follow the instructions below.
 
 To run the script:

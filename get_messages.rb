@@ -3,7 +3,7 @@ require "json"
 require "pry"
 
 #
-# This script pulls all the messages from an SQS queue and saves them to a json file.
+# This script pulls all the messages from an SQS queue and saves them to a json file. It just reads the messages, it does not purge them from the queue.
 #
 # To run the script:
 #   1. Install ruby
